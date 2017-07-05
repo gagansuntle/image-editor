@@ -1,0 +1,54 @@
+<script type="text/javascript" src="http://feather.aviary.com/imaging/v3/editor.js"></script>
+
+    <!-- Instantiate Feather -->
+    <script type='text/javascript'>
+    var featherEditor = new Aviary.Feather({
+        apiKey: '15cd524d43214c67b9d515cd678689b0',
+        theme: 'dark', // Check out our new 'light' and 'dark' themes!
+        tools: 'all',
+        displayImageSize: 'true',
+        appendTo: '',
+        onSave: function(imageID, newURL) {
+            var img = document.getElementById("image1");
+            img.src = newURL;
+            var ph = document.getElementById("new_image_placeholder_div");
+            ph.innerHTML = '<img src="'+img.src+'" height="100">';
+
+
+    var xmlhttp_c;
+    if (window.XMLHttpRequest){xmlhttp_c=new XMLHttpRequest();} else {
+        xmlhttp_c=new ActiveXObject("Microsoft.XMLHTTP");}
+
+            alert("Passing the URL "+newURL+" to the PHP page...");
+
+      xmlhttp_c.open("GET", "feather_save_handler.php?newURL="+encodeURI(newURL), true);
+
+    xmlhttp_c.onreadystatechange=function() { if (xmlhttp_c.readyState==4 && xmlhttp_c.status==200) {
+
+            alert(xmlhttp_c.responseText);
+            alert("Saved!");
+
+            } else {
+                    }
+             }
+
+    xmlhttp_c.send();
+    // end save AJaX call..
+
+        },
+        onError: function(errorObj) {
+            alert(errorObj.args);
+        }
+    });
+    function launchEditor(id, src) {
+
+        featherEditor.launch({
+            image: id,
+            url: src
+        });
+        return false;
+    }
+
+    </script>
+
+<img src="img/cricket.jpg" onclick="return launchEditor('image1', 'http://localhost:63342/aviary/img/cricket.jpg');" >

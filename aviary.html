@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <title>
+    Aviary Javascript SDK
+      </title>
+       <!-- Load Feather code -->
+	<script type="text/javascript" src="https://dme0ih8comzn4.cloudfront.net/imaging/v3/editor.js"></script>
+	<script type="text/javascript" src="node_modules/jquery/dist/jquery.js"></script>
+
+<!-- Instantiate Feather -->
+<script type='text/javascript'>
+
+    var img
+var featherEditor = new Aviary.Feather({
+	apiKey: '15cd524d43214c67b9d515cd678689b0',
+	theme: 'light', // Check out our new 'light' and 'dark' themes!
+	tools: 'all',
+	appendTo: '',
+	onSave: function(imageID, newURL) {
+		img = document.getElementById(imageID);
+		img.src = newURL;
+//		downloadImage()
+//        featherEditor.close();
+	},
+//    onSaveButtonClicked: function (imageID) {
+//        featherEditor.save();
+//
+//    },
+	onError: function(errorObj) {
+		alert(errorObj.message);
+	}
+//    postUrl: 'http://localhost/aviary/img/post.php',
+//    postData : document.getElementById(img)
+});
+
+//function onSave(postUrl, postData) {
+//  $.post('/img', {url: postUrl, postdata: postData})
+//}
+
+function launchEditor(id, src) {
+	featherEditor.launch({
+		image: id,
+		url: src,
+	});
+	return false;
+}
+function downloadImage() {
+		var url = img ? img.src : editableimage1;
+		var link = document.createElement("a");
+//        document.body.appendChild(link);
+		link.href = url;
+		// Download attr
+		//// Only honored for links within same origin,
+		//// therefore won't work once img has been edited (i.e., S3 URLs)
+		link.download()
+		link.click();
+	}
+
+</script>
+
+
+
+   </head>
+   <body>
+
+
+<!-- original line of HTML here: -->
+<img id="editableimage1" src="img/cricket.jpg" onclick="return launchEditor('editableimage1','http://localhost:63342/aviary/img/cricket.jpg');"/>
+
+
+   </body>
+</html>

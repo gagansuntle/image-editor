@@ -1,0 +1,34 @@
+<!-- Load widget code -->
+<script type="text/javascript" src="http://feather.aviary.com/js/feather.js"></script>
+
+
+<!-- Instantiate the widget -->
+<script type="text/javascript">
+
+    var featherEditor = new Aviary.Feather({
+        apiKey: '15cd524d43214c67b9d515cd678689b0',
+        apiVersion: 3,
+        tools: ['draw', 'stickers'],
+        onSave: function(imageID, newURL) {
+            var img = document.getElementById(imageID);
+            img.src = newURL;
+        }
+    });
+
+    function launchEditor(id, src) {
+        featherEditor.launch({
+            image: id,
+            url: src
+        });
+        return false;
+    }
+
+</script>
+
+<!-- Add an edit button, passing the HTML id of the image
+    and the public URL to the image -->
+<a href="#" onclick="return launchEditor('editableimage1',
+    'img/cricket.jpg');">Edit!</a>
+
+<!-- original line of HTML here: -->
+<img id="editableimage1" src="img/cricket.jpg"/>
